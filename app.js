@@ -123,17 +123,7 @@ function(accessToken, refreshToken, profile, done) {
 ));
 
 
-// User.register({username:'Olivia@olivia.com', active: false}, 'ZanderXiaoaoHao', function(err, user) {
-//   if (err) { 
-//     console.log(err)
-//   }});
 
-//   const authenticate = User.authenticate();
-//   authenticate('Olivia', 'ZanderXiaoaoHao', function(err, result) {
-//     if (err) { console.log(err) }
-//     else {
-//       console.log( "Registered!");
-//     }});
 
 app.get("/", function(req, res){
   let currentUserName ="Guest";
@@ -302,7 +292,7 @@ app.get("/posts/:postName", function(req, res){
 });
 
 
-app.post("//blogMessages",function(req,res){
+app.post("/blogMessages",function(req,res){
   const blogId = req.body.id;
   Blog.findOne({_id:blogId},function(err,blog){
     if(err){

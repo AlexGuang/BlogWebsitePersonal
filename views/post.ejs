@@ -34,8 +34,8 @@
 
   <h2>Guest Comments</h2>
   <!-- <messages.forEach(function(message){ %>  -->
-
-    <div class="jumbotron">
+<div class="row ">
+    <div class="jumbotron col-lg-8 " >
       <h2>Message Board</h2>
       <form action="/blogMessages" method="post">
         <input type="hidden" name = "id" value="<%= post.id %> ">
@@ -46,9 +46,10 @@
       </form>
       
     </div>
-
+  </div>
+<div class="container container-relative">
     <% for ( i = 0; i< post.comment.length;i++){ %> 
-  <div class="row messagesbox">
+  <div class="row messagesbox-blog">
     <div class="col-lg-1  guesticon tablemessage-left">
       <h4>
         Floor<%= i+1 %> 
@@ -74,5 +75,7 @@
     </div>
   </div>
   <% }%> 
+</div>
+    
 
 <%- include("partials/footer"); -%>
