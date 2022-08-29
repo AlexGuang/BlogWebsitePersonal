@@ -1,0 +1,369 @@
+html {
+  min-height: 100%;
+  position: relative;
+}
+p{
+  text-align:justify;
+}
+navbar-inverse{
+  color:white;
+}
+navbar-inverse:hover{
+  color:#555;
+}
+h1:hover{
+  color:#555;
+}
+.button1 {
+  background-color:rgba(51,122,183);
+  color: white;
+  font-size: 20px;
+  
+  border-radius: 8px;
+  text-align: center;
+  
+}
+.button1 a:visited{
+  color: White;
+}
+.button1 a{
+  text-decoration: none;
+}
+.currentPage{
+  color: gray;
+}
+
+.container-fluid {
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+.navbar-brand{
+  color:white;
+}
+.color-white{
+  color:white;
+}
+a .navbar-brand{
+  color:white;
+  margin-left: 30px;
+}
+.color-orange{
+  color:orange;
+}
+.color-brown{
+  color:#0078AA;
+}
+.star-margin{
+  margin-left: 10px;
+}
+a:hover{
+ color:yellow;
+}
+.google-signin{
+  width: 3rem;
+}
+.form-signin .btn a{
+  color:white;
+}
+.form-signin .btn a:hover{
+  text-decoration: none;
+}
+.login-border{
+  margin-top: 100px;
+  border-bottom-style: solid;
+  border-width: 1px;
+  
+  
+}
+.home-blog-title{
+  display: inline-block;
+}
+.home-blog-title-guest{
+  display: inline-block;
+  color:#0078AA;
+  /* font-family: 'Sacramento', cursive; */
+  font-family: 'DynaPuff', cursive;
+  font-weight: 900;
+}
+.navbar {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 0;
+    font-size: 12px;
+    letter-spacing: 5px;
+    background-color: rgba(66,139,202);
+    font-weight: 700;
+    color:white;
+}
+.inline {
+  display: inline-block;
+
+}
+.inline-p {
+  /* display: inline-block; */
+  float: right;
+  margin-top: 50px;
+
+}
+.navbar-nav  li a {
+  color:white;
+}
+.navbar-nav  li a:hover {
+    color: White;
+}
+
+.form-button{
+  position:relative;
+}
+
+.footer-padding {
+	padding-bottom: 60px;
+}
+
+.footer {
+
+	position: absolute;
+	text-align: center;
+	bottom: 0;
+  left:0;
+	width: 100%;
+	height: 100px;
+	background-color: rgba(66,139,202);
+  
+}
+.homefooter {
+
+	position: relative;
+	text-align: center;
+	bottom: 0;
+	width: 100%;
+	height: 100px;
+	background-color:  rgba(66,139,202);
+  padding-top: 30px;
+}
+
+.footer p {
+	margin-top: 25px;
+	font-size: 12px;
+  color: #fff;
+}
+a:link {
+  color:black;
+}
+
+/* visited link */
+a:visited {
+  color: green;
+}
+
+/* mouse over link */
+a:hover {
+  color: #C1EFFF;
+}
+
+/* selected link */
+a:active {
+  color: blue;
+}
+
+li .btn a{
+  color:black;
+
+}
+li .btn a:hover{
+  text-decoration: none;
+  
+}
+
+p a:link{
+  color:#1abc9c;
+}
+/* visited link */
+p a:visited {
+  color: purple;
+}
+
+/* mouse over link */
+p a:hover {
+  color: #C1EFFF;
+}
+
+/* selected link */
+p a:active {
+  color: blue;
+}
+
+.fa-star:hover {
+    color: yellow;
+}
+
+
+.callout {
+  position: absolute;
+  bottom: -150px;
+  right: 400px;
+  margin-left: 20px;
+  max-width: 700px;
+ height:300px;
+}
+
+.callout-header {
+  height:150px;
+  
+  padding: 25px 15px;
+  padding-top: 50px;
+  background: #555;
+  font-size: 30px;
+  color: white;
+}
+
+.callout-container {
+  padding: 15px;
+  background-color: #ccc;
+  color: black
+}
+
+.closebtn {
+  position: absolute;
+  top: 5px;
+  right: 15px;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;  
+}
+
+.closebtn:hover {
+  color: lightgrey;
+}
+.wbutton{
+  width:100px;
+  margin-right: 15px;
+  margin-left: 35px;
+}
+.text-center{
+  text-align: center;
+}
+/* ////////////////////////// */
+.dialog{
+  background-color: rgba(255,255, 255, 1);
+  width: 20%;
+  height: 100px;
+  border-radius: 5px;
+  z-index: 1;/*优先*/
+  text-align: center;
+  /* 实现对浏览器窗口的垂直居中 */
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
+/* 弹出框的提示文字部分 */
+.header{
+  height: 60%;
+  line-height: 60px;
+  margin: 0 auto;
+}
+/* 弹出框的两个按钮部分 */
+.footer1{
+  height: 40%;
+  display: flex;
+  flex-direction: row;
+}
+/* 取消和确认按钮的设置 */
+.confirm,.cancel{
+  outline: none;
+  background-color: white;
+  width: 50%;
+}
+.confirm{
+  border-width: 1px 0px 0px 1px;
+  border-bottom-right-radius:5px; 
+}
+.cancel{
+  border-width: 1px 0px 0px 0px;
+  border-bottom-left-radius:5px; 
+}
+/* body{
+  background-color: rgba(0,0, 0, 0.8);/*设置透明度为0.8，以突出遮罩效果*/
+/* } */ 
+
+#jumbo{
+  margin-top: 200px;
+}
+.messagep{
+  
+  text-align: center;
+  
+  height: 200px;
+  position: relative;
+ 
+
+}
+.messagep-son{
+
+  position: absolute;
+bottom:38%;
+left: 3%;
+right:3%;
+transform: translate(-50% -50%);
+
+}.messagep-son-left{
+
+  position: absolute;
+bottom:-1%;
+left: 3%;
+right:3%;
+transform: translate(-50% -50%);
+
+}
+.messagep-son-left h3{
+
+margin-top: 10px;
+
+}
+.messagep-son-right{
+
+  position: absolute;
+bottom:50%;
+left: 3%;
+right:3%;
+transform: translate(-50% -50%);
+
+}
+.messagepinside{
+  text-align: center;
+  margin-top: 60px;
+  position: absolute;
+  top:50px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  
+}
+.guesticon{
+  height:200px;
+  text-align: center;
+}
+.messagesbox{
+  height: 200px;
+  position: relative;
+  
+  text-align: center;
+
+}
+.tablemessage{
+ border:solid;
+ border-color: black;
+ border-width: 1px;
+}
+.tablemessage-right{
+  border:solid;
+  border-left: none;
+  border-color: black;
+  border-width: 1px;
+ }
+.fa-user-large{
+  color:orange;
+}

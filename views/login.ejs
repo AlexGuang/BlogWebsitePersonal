@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>TECH BLOG</title>
+  <meta charset="utf-8">
+  <!-- CSS only -->
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  
+  <link rel="stylesheet" href="/css/styles.css">
+  
+  <style>
+    body {
+ 
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+  </style>
+</head>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">        
+          <a href="/compose">
+             <p class="navbar-brand" style="color:white">JINGYAO'S TECH BLOG</p>
+          </a>   
+      </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li id="home"><a href="/">HOME</a></li>
+          <li id="about"><a href="/about">ABOUT THE BLOG</a></li>
+          <li id="contact"><a href="/contact">CONTACT ME</a></li>
+        </ul>
+    </div>
+  </nav>
+
+  <body>
+    <div class="container">
+
+
+
+        <form class="form-signin login-border" action="/login" method="post"  >
+          <h2 class="form-signin-heading">Please login</h2>
+          <label for="inputEmail" class="sr-only">Email address</label>
+          <input type="email" id="inputEmail" name ="username" class="form-control" placeholder="Email address" required autofocus>
+          <label for="inputPassword" class="sr-only">Password</label>
+          <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" value="remember-me"> Remember me
+            </label>
+          </div>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+        </form>
+  
+      </div> <!-- /container -->
+   
+      <div class="container form-signin">
+        <h2 class="form-signin-heading text-center"> or </h2>
+        <form action="/auth/google" method="get">
+          <button class="btn btn-lg btn-danger btn-block " type="submit" >
+            
+              <i class="fa-brands fa-google"></i>
+               Sign in with Google
+           </button>
+        </form>
+        
+ 
+      </div>
+      
+      
+  
+
+<div class="footer-padding"></div>
+  <div class="footer ">
+    <p class="text-center">Made with ❤️ by Jing Yao</p>
+  </div>
+</div>
+<script src="https://kit.fontawesome.com/c3e389d378.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
