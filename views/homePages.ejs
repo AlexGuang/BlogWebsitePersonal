@@ -30,15 +30,7 @@
         </form>
         
       </div>
-      <div class="row">
-        <div class="col-lg-4">
-          <h2>Safari bug warning!</h2>
-          <p class="text-danger">As of v9.1.2, Safari exhibits a bug in which resizing your browser horizontally causes rendering errors in the justified nav that are cleared upon refreshing.</p>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
-        </div>
-      </div>
-
+     
     </div><!-- /.blog-main -->
    
     
@@ -79,28 +71,35 @@
   </div><!-- /.row -->
 
   <h2>Guest Comments</h2>
-  <% messages.forEach(function(message){ %> 
+  <!-- <messages.forEach(function(message){ %>  -->
+
+    <% for ( i = 0; i< messages.length;i++){ %> 
   <div class="row messagesbox">
+    <div class="col-lg-1  guesticon tablemessage-left">
+      <h4>
+        Floor<%= i+1 %> 
+      </h4>
+     
+    </div>
     <div class="col-lg-2 guesticon tablemessage">
       <div class="messagep-son-left">
-        <i class="fa-solid fa-user-large fa-8x"></i>
-        <h3><%= message.name %></h3>
-      <h5 style = "color:#EE6983;"><%= message.time %> </h5>
+        <i class="fa-solid fa-user-large fa-7x"></i>
+        <h3><%= messages[i].name %></h3>
+      <h5 style = "color:#EE6983;"><%= messages[i].time %> </h5>
       </div>
       
       
     </div>
-    <div class="col-lg-10 messagep tablemessage-right">
+    <div class="col-lg-9 messagep tablemessage-right">
       <div class="messagep-son-right">
-        <p><%= message.content %>  </p>
+        <p><%= messages[i].content %>  </p>
       </div>
      
       
       
     </div>
   </div>
-  <% }) %> 
-
+  <% }%> 
 
 
 

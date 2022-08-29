@@ -18,8 +18,8 @@
           <li id="home"><a href="/">HOME</a></li>
           <li id="about"><a href="/about">ABOUT THE BLOG</a></li>
           <li id="contact"><a href="/contact">CONTACT ME</a></li>
-          <li id="update"><a href="/update/<%=title%> ">UPDATE</a></li>
-          <li id="delete"><a href="/delete/<%=title%>">DELETE</a></li>
+          <li id="update"><a href="/update/<%=post.title%> ">UPDATE</a></li>
+          <li id="delete"><a href="/delete/<%=post.title%>">DELETE</a></li>
         </ul>
     </div>
   </nav>
@@ -27,7 +27,52 @@
   <body>
     <div class="container">
 
-  <h1><%=title%></h1>
-  <p><%=content%></p>
+  <h1><%=post.title%></h1>
+  <p><%=post.content%></p>
+
+
+
+  <h2>Guest Comments</h2>
+  <!-- <messages.forEach(function(message){ %>  -->
+
+    <div class="jumbotron">
+      <h2>Message Board</h2>
+      <form action="/blogMessages" method="post">
+        <input type="hidden" name = "id" value="<%= post.id %> ">
+        <input type="hidden" name = "title" value = "<%= post.title %> ">
+        <textarea name="text" class="lead" rows="10" cols="55" placeholder="Please leave your messages here, thanks!" required ></textarea>
+      <button class="btn btn-lg btn-primary"  type="submit">Submit</button>
+
+      </form>
+      
+    </div>
+
+    <% for ( i = 0; i< post.comment.length;i++){ %> 
+  <div class="row messagesbox">
+    <div class="col-lg-1  guesticon tablemessage-left">
+      <h4>
+        Floor<%= i+1 %> 
+      </h4>
+     
+    </div>
+    <div class="col-lg-2 guesticon tablemessage">
+      <div class="messagep-son-left">
+        <i class="fa-solid fa-user-large fa-7x"></i>
+        <h3><%= post.comment[i].name %></h3>
+      <h5 style = "color:#EE6983;"><%= post.comment[i].time %> </h5>
+      </div>
+      
+      
+    </div>
+    <div class="col-lg-9 messagep tablemessage-right">
+      <div class="messagep-son-right">
+        <p><%= post.comment[i].content %>  </p>
+      </div>
+     
+      
+      
+    </div>
+  </div>
+  <% }%> 
 
 <%- include("partials/footer"); -%>

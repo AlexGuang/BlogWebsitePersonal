@@ -364,6 +364,22 @@ transform: translate(-50% -50%);
   border-color: black;
   border-width: 1px;
  }
+ .tablemessage-left{
+  border:solid;
+  border-right: none;
+  border-color: black;
+  border-width: 1px;
+
+
+ }
+ .tablemessage-left h4{
+  position: absolute;
+  bottom:40%;
+  left: 3%;
+  right:3%;
+  transform: translate(-50% -50%);
+
+ }
 .fa-user-large{
   color:orange;
 }

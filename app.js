@@ -249,7 +249,7 @@ app.post("/compose", function(req, res){
    const year = date.getFullYear();
    const month =  monthsInEng[date.getMonth()] ;
    const day = date.getDate();
-   const time = day+" "+month+", "+year;
+   const time = day+", "+month+", "+year;
    Blog.insertMany({
     title:postTitle,
     content:postBody,
@@ -285,21 +285,62 @@ app.get("/posts/:postName", function(req, res){
     if(err){
       console.log(err);
     }else if(docs){
-      docs.forEach(function(post){
-        const storedTitle = _.lowerCase(post.title);
+      docs.forEach(function(doc){
+        const storedTitle = _.lowerCase(doc.title);
     
         if (storedTitle === requestedTitle) {
           res.render("post", {
-            title: post.title,
-            content: post.content
+            post:doc
           });
         }
       });
     }
   })
+
   
 
 });
+
+
+app.post("//blogMessages",function(req,res){
+  const blogId = req.body.id;
+  Blog.findOne({_id:blogId},function(err,blog){
+    if(err){
+      console.log(err);
+    }else{
+      let conmments = blog.comment;
+      const user = ObjectID(req.session.passport.user);
+      User.findOne({_id:user},function(err,thisuser){
+        if(err){
+          console.log(err)
+        }else{          
+          const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', "December"];
+          const usersname=  thisuser.name;
+          let currentYear = new Date().getFullYear();
+          let currentMonth = months[ new Date().getMonth()];
+          let currentDay = new Date().getDate();
+          let currentHour = new Date().getHours();
+          let currentMinute = new Date().getMinutes();
+          let currentTime = currentDay+","+currentMonth+","+currentYear+ ", "+currentHour+":"+currentMinute
+          conmments.push({
+            name:usersname,
+            content:req.body.text,
+            time:currentTime
+
+          });
+          Blog.updateOne({_id:blogId},{comment:conmments},function(err,result){
+            if(err){
+              console.log(err);
+            }else{
+              res.redirect("/posts/:"+req.body.tittle)
+            }
+          });
+
+        }
+      })
+    }
+  })
+})
 app.get("/update/:postName",function(req,res){
   const requestedTitle = _.lowerCase(req.params.postName);
   Blog.find({},function(err,docs){
@@ -369,6 +410,8 @@ app.get("/home/:number",function(req,res){
           console.log("确认一下这个人名："+currentUserName);
           callback(currentUserName);
         }});
+    }else{
+      callback(currentUserName);
     }
    
 
@@ -398,16 +441,23 @@ app.get("/home/:number",function(req,res){
          }
          console.log("这页显示的数组是："+pagePost);
          console.log("这页的用户是："+ username);
-   
+
+
+         Message.find({},function(err,mess){
+          if(err){
+            console.log(err)
+          }else{
+         
          res.render("homePages", {
        
            startingContent: homeStartingContent,
            posts: pagePost, 
            pageshowNum:intpageNum,
            maxPage:maxPageNum,
-           userName:username
+           userName:username,
+           messages:mess})
    
-           });
+           }});
 
       }else{
         console.log("itemNumPerpage:"+ itemNumPerPage);
@@ -421,16 +471,21 @@ app.get("/home/:number",function(req,res){
          console.log("这页显示的数组是："+pagePost);
          console.log("这页的用户是："+ username);
    
+         Message.find({},function(err,mess){
+          if(err){
+            console.log(err)
+          }else{
+         
          res.render("homePages", {
        
            startingContent: homeStartingContent,
            posts: pagePost, 
            pageshowNum:intpageNum,
            maxPage:maxPageNum,
-           userName:username
+           userName:username,
+           messages:mess})
    
-   
-           });
+           }});
 
       }
 
@@ -483,7 +538,7 @@ app.get("/unauthorized",function(req,res){
 });
 
 app.post("/homeMessages",function(req,res){
-  const usersid = req.session.passport.user;
+  const usersid = ObjectID(req.session.passport.user);
   User.findOne({_id:usersid},function(err,doc){
     if(err){
       console.log(err)
@@ -493,7 +548,7 @@ app.post("/homeMessages",function(req,res){
           const usersname=  doc.name;
           let currentYear = new Date().getFullYear();
           let currentMonth = months[ new Date().getMonth()];
-          let currentDay = new Date().getDay();
+          let currentDay = new Date().getDate();
           let currentHour = new Date().getHours();
           let currentMinute = new Date().getMinutes();
           let currentTime = currentDay+","+currentMonth+","+currentYear+ ", "+currentHour+":"+currentMinute
