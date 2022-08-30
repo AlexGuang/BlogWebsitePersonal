@@ -430,7 +430,54 @@ app.post("/update",function(req,res){
   });
 });
 
-
+app.post("/starclick",function(req,res){
+  if(req.isAuthenticated()){
+const user = req.session.passport.user;
+const blogid = req.body.postid;
+console.log(user);
+console.log(blogid);
+Blog.findOne({_id:blogid},function(err,blog){
+  if(err){
+    console.log(err)
+  }else if(blog){
+    if(blog.starUser.length ===0){
+      Blog.updateOne({
+        _id:blogid
+      },{starUser:[user]},function(err,result){
+        if (err){
+          console.log(err)
+        }else{
+          res.redirect("/");
+        }
+      })
+    }else{
+      let starUser = blog.starUser;
+      if(starUser.includes(user)){
+       const  newstarUser = starUser.filter((num)=>num!==user);
+       Blog.updateOne({_id:blogid},{starUser:newstarUser},function(err,resul){
+        if(err){
+          console.log(err);
+        }else{
+          res.redirect("/");
+        }
+       })
+      }else{
+        starUser.push(user);
+        Blog.updateOne({_id:blogid},{starUser:newstarUser},function(err,resul){
+          if(err){
+            console.log(err);
+          }else{
+            res.redirect("/");
+          }
+         });
+      }
+    }
+  }
+})
+  }else{
+    res.redirect("/login");
+  }
+})
 
 
 app.get("/home/:number",function(req,res){

@@ -17,9 +17,9 @@
             <p class="blog-post-meta color-brown" >
               <%= post.time  %>
               <form action="/starclick" method="post">
-                <button class="star-margin " type="submit" >
-                  <i class="fa-solid fa-star color-orange "></i>
-                 </button><%=post.starUser.length %>
+                <input type="hidden" name = "postid" value = <%= post._id %> >
+                <button class="fa-solid fa-star color-orange " type ="submit"></button>
+                &nbsp;<%=post.starUser.length %>
               </form>
               
             </p>
