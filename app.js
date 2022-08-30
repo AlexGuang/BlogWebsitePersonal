@@ -59,6 +59,7 @@ const userSchema = new mongoose.Schema({
  password:String,
  googleid:String,
  name:String,
+ level:String,
  username:{
   type:String,
 
@@ -151,7 +152,8 @@ app.get("/", function(req, res){
                     startingContent: homeStartingContent,
                     posts: doc.reverse(),
                     userName: currentUserName,
-                    messages:mess
+                    messages:mess,
+                    islogin:true
                     });
 
                 }
@@ -185,7 +187,8 @@ app.get("/", function(req, res){
               startingContent: homeStartingContent,
               posts: doc.reverse(),
               userName: currentUserName,
-              messages:mess
+              messages:mess,
+              islogin:false
               });
 
           }
@@ -206,7 +209,7 @@ app.get("/auth/google/blogs",
   passport.authenticate("google", { failureRedirect: "/login" }),
   function(req, res) {
     // Successful authentication, redirect home.
-    res.redirect("/compose");
+    res.redirect("/");
   });
 
 app.get("/about", function(req, res){
@@ -224,8 +227,40 @@ app.get("/contact", function(req, res){
   
 });
 
+
+app.get("/home",function(req,res){
+  if(req.isAuthenticated()){
+    const user = req.session.passport.user;
+    User.findOne({_id:user},function(err,user){
+      if(err){
+        console.log(err)
+      }else{
+        if(user.level === "1"){
+          res.redirect("/compose")
+        }else{
+          res.redirect("/");
+        }
+      }
+    })
+  }
+})
+
 app.get("/compose", function(req, res){
-  res.render("compose");
+  if(req.isAuthenticated()){
+    const user = req.session.passport.user;
+    User.findOne({_id:user},function(err,user){
+      if(err){
+        console.log(err)
+      }else{
+        if(user.level === "1"){
+          res.render("compose")
+        }else{
+          res.redirect("/");
+        }
+      }
+    })
+  }
+  
 });
 
 app.post("/compose", function(req, res){
@@ -463,7 +498,7 @@ Blog.findOne({_id:blogid},function(err,blog){
        })
       }else{
         starUser.push(user);
-        Blog.updateOne({_id:blogid},{starUser:newstarUser},function(err,resul){
+        Blog.updateOne({_id:blogid},{starUser:starUser},function(err,resul){
           if(err){
             console.log(err);
           }else{
@@ -610,14 +645,14 @@ app.post("/login",function(req,res){
   req.login(user, function(err) {
     if (err) {
       //console.log(err)
-      res.redirect("/");
+      res.redirect("/login");
 
      }
     else{
       console.log("else");
       passport.authenticate('local',{ failureRedirect: '/unauthorized', failureMessage: true })(req,res,function(){
         
-        res.redirect("/contact");
+        res.redirect("/");
       });
        
     }

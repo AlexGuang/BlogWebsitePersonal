@@ -1,6 +1,10 @@
 
 <%- include("partials/header"); -%>
-   
+   <% if(islogin){ %>
+    <h1>登录了</h1>
+    <% }else{ %>
+      <h1>没登录</h1>
+      <% } %>   
     <div class="container">
 
       <div class="blog-header">
