@@ -293,43 +293,96 @@ app.get("/posts/:postName", function(req, res){
 
 
 app.post("/blogMessages",function(req,res){
-  const blogId = req.body.id;
-  Blog.findOne({_id:blogId},function(err,blog){
-    if(err){
-      console.log(err);
-    }else{
-      let conmments = blog.comment;
-      const user = ObjectID(req.session.passport.user);
-      User.findOne({_id:user},function(err,thisuser){
-        if(err){
-          console.log(err)
-        }else{          
-          const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', "December"];
-          const usersname=  thisuser.name;
-          let currentYear = new Date().getFullYear();
-          let currentMonth = months[ new Date().getMonth()];
-          let currentDay = new Date().getDate();
-          let currentHour = new Date().getHours();
-          let currentMinute = new Date().getMinutes();
-          let currentTime = currentDay+","+currentMonth+","+currentYear+ ", "+currentHour+":"+currentMinute
-          conmments.push({
-            name:usersname,
-            content:req.body.text,
-            time:currentTime
-
-          });
-          Blog.updateOne({_id:blogId},{comment:conmments},function(err,result){
-            if(err){
-              console.log(err);
-            }else{
-              res.redirect("/posts/:"+req.body.tittle)
-            }
-          });
-
-        }
-      })
+  if(req.isAuthenticated()){
+    const userid = ObjectID(req.session.passport.user);
+    const blogId = req.body.id.trim();
+    const blogtitle = req.body.title;
+    console.log("打印标题："+blogtitle);
+    function getCurrentTime(){
+      const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', "December"];
+      let currentYear = new Date().getFullYear();
+      let currentMonth = months[ new Date().getMonth()];
+      let currentDay = new Date().getDate();
+      let currentHour = new Date().getHours();
+      let currentMinute = new Date().getMinutes();
+      let currentTime = currentDay+","+currentMonth+","+currentYear+ ", "+currentHour+":"+currentMinute
+      return currentTime;
     }
-  })
+
+    Blog.findOne({_id:blogId},function(err,blog){
+      console.log("我进来了")
+      if(err){
+        console.log(err);
+      }else{
+        console.log("dayin"+ blog);       
+        
+          User.findOne({_id:userid},function(err,thisuser){
+            if(err){
+              console.log(err)
+            }else{     
+              
+              const oldcomment = blog.comment;     
+              
+              console.log("再看一遍你是谁"+blog._id);
+              console.log("再看一遍你是谁"+blog.title);
+              
+              
+              
+              if(oldcomment.length===0){
+              const usersname=  thisuser.name;
+              const ctime = getCurrentTime();
+              console.log("进入函数了！"+usersname+"hahaha"+req.body.text+"时间"+ctime);
+              const newCooment = {
+                name:usersname,
+                content:req.body.text,
+                time:ctime    
+              };
+              Blog.updateOne({_id:blogId},{comment:newCooment},function(err,result){
+                if(err){
+                  console.log(err);
+                }else{
+                  res.redirect("/posts/:"+req.body.tittle)
+                }
+              });
+              console.log("kankan qingkuang")
+            }else{
+              let conmments = blog.comment;
+              const usersname=  thisuser.name;
+              const ctime = getCurrentTime();
+              const newCooment = {
+                name:usersname,
+                content:req.body.text,
+                time:ctime    
+              };
+              conmments.push(newCooment);
+              Blog.updateOne({_id:blogId},{comment:conmments},function(err,result){
+                if(err){
+                  console.log(err);
+                }else{
+                  console.log(result);
+                  setTimeout(function(){
+                    res.redirect("/posts/:"+blogtitle);
+                    console.log("刷新啦");
+                  },500);
+                 // res.redirect("/posts/:"+req.body.tittle)
+                }
+              });
+
+
+
+            }
+
+        }})
+       
+      
+        
+      
+      }
+    })
+  }else{
+    res.redirect("/login");
+  }
+  
 })
 app.get("/update/:postName",function(req,res){
   const requestedTitle = _.lowerCase(req.params.postName);

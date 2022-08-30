@@ -14,7 +14,15 @@
           <%  posts.forEach(function(post){ %>
           <div class="blog-post">
             <h2 class="blog-post-title"><%=post.title%></h2>
-            <p class="blog-post-meta color-brown" ><%= post.time  %> <a class="star-margin " href="#"><i class="fa-solid fa-star color-orange "></i><% post.starUser.length %> </a></p>
+            <p class="blog-post-meta color-brown" >
+              <%= post.time  %>
+              <form action="/starclick" method="post">
+                <button class="star-margin " type="submit" >
+                  <i class="fa-solid fa-star color-orange "></i>
+                 </button><%=post.starUser.length %>
+              </form>
+              
+            </p>
 
             <p> <%=post.content.substring(0, 400) + " ..."%> <a href="/posts/:<%= post.title %> ">read more</a></p>
             <hr>
