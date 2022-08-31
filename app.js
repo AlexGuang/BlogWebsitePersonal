@@ -11,8 +11,9 @@ const passportLocalMongoose = require("passport-local-mongoose");
 
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require("mongoose-findorcreate");
+const { min } = require('lodash');
 
-const homeStartingContent = "Lacus vel facilisis volutpat est velit egestas dui id ornare. Semper auctor neque vitae tempus quam. Sit amet cursus sit amet dictum sit amet justo. Viverra tellus in hac habitasse. Imperdiet proin fermentum leo vel orci porta. Donec ultrices tincidunt arcu non sodales neque sodales ut. Mattis molestie a iaculis at erat pellentesque adipiscing. Magnis dis parturient montes nascetur ridiculus mus mauris vitae ultricies. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Ultrices vitae auctor eu augue ut lectus arcu bibendum at. Odio euismod lacinia at quis risus sed vulputate odio ut. Cursus mattis molestie a iaculis at erat pellentesque adipiscing.";
+const homeStartingContent = "Welcome to my first blog post!  I am so excited to be writing this right now.As a beginner for programmer. I finally have my personal site being able to share ideas. That's a milestone, so fun and exciting to me. For my blog, this space will be a little bit of everything on my learning journey.  From HTML, CSS, Javascript, SQL,Database, MongoDB, and personal life perspectives.If you think Olivia's blog is good, you can share the link to your friends or give it a star! it means a lot to me HAHA.I just wanted to say thank you so much for just being here and reading my first blog.Hope you continue to follow along! Thanks again, friends!";
 const aboutContent = "Hac habitasse platea dictumst vestibulum rhoncus est pellentesque. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Non diam phasellus vestibulum lorem sed. Platea dictumst quisque sagittis purus sit. Egestas sed sed risus pretium quam vulputate dignissim suspendisse. Mauris in aliquam sem fringilla. Semper risus in hendrerit gravida rutrum quisque non tellus orci. Amet massa vitae tortor condimentum lacinia quis vel eros. Enim ut tellus elementum sagittis vitae. Mauris ultrices eros in cursus turpis massa tincidunt dui.";
 const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rhoncus urna neque viverra justo nec ultrices. Arcu dui vivamus arcu felis bibendum. Consectetur adipiscing elit duis tristique. Risus viverra adipiscing at in tellus integer feugiat. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Consequat interdum varius sit amet mattis. Iaculis nunc sed augue lacus. Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit. Pulvinar elementum integer enim neque. Ultrices gravida dictum fusce ut placerat orci nulla. Mauris in aliquam sem fringilla ut morbi tincidunt. Tortor posuere ac ut consequat semper viverra nam libero.";
 
@@ -41,6 +42,7 @@ const blog = new mongoose.Schema({
   title:String,
   content:String,
   time: String,
+  subject:String,
   starUser:[String],  
   comment:[{
     name:String,
@@ -48,6 +50,10 @@ const blog = new mongoose.Schema({
     time:String
   }]
 });
+const topblog = new mongoose.Schema({
+  title:String,
+  star:String
+})
 
 const messageSchema = new mongoose.Schema({
   name:String,
@@ -74,6 +80,7 @@ const User =  mongoose.model("User",userSchema);
 
 const Blog = mongoose.model("Blog",blog);
 const Message = mongoose.model("Message",messageSchema);
+const Topblog = mongoose.model("Topblog",topblog);
 passport.use(User.createStrategy());
 
 passport.serializeUser(function(user, done) {
@@ -137,7 +144,7 @@ app.get("/", function(req, res){
       }else{
         console.log(doc);
         currentUserName = doc.name.charAt(0).toUpperCase() + doc.name.slice(1);
-        console.log("///////////////////////")
+        console.log("?#?#?#?#?#?#?#??#?#?#?#?#?#?#?#??#?#?#?#?#")
     Blog.find({},function(err,doc){
       if(err){
         console.log(err);
@@ -147,14 +154,32 @@ app.get("/", function(req, res){
                 if(err){
                   console.log(err)
                 }else{
-                  res.render("home", {
+
+                  Topblog.find({},function(err,topblog){
+                    if(err){
+                      console.log(err)
+                    }else{
+                      let topsblog = [];
+                      let blogtop = topblog.reverse();
+                      for(let i =0 ;i< Math.min(10,blogtop.length);i++){
+                        topsblog.push(blogtop[i]);
+
+                      }
+                      console.log("打印出来")
+                console.log(topsblog)
+                      res.render("home", {
       
-                    startingContent: homeStartingContent,
-                    posts: doc.reverse(),
-                    userName: currentUserName,
-                    messages:mess,
-                    islogin:true
-                    });
+                        startingContent: homeStartingContent,
+                        posts: doc.reverse(),
+                        userName: currentUserName,
+                        messages:mess,
+                        islogin:true,
+                        topssblog:topsblog
+                        });
+                    }
+                  })
+
+                 
 
                 }
 
@@ -182,15 +207,29 @@ app.get("/", function(req, res){
           if(err){
             console.log(err)
           }else{
-            res.render("home", {
+            Topblog.find({},function(err,topblog){
+              if(err){
+                console.log(err)
+              }else{
+                let topsblog = [];
+                let blogtop = topblog.reverse();
+                for(let i =0 ;i< Math.min(10,blogtop.length);i++){
+                  topsblog.push(blogtop[i]);
 
-              startingContent: homeStartingContent,
-              posts: doc.reverse(),
-              userName: currentUserName,
-              messages:mess,
-              islogin:false
-              });
+                }
+                console.log("打印出来")
+                console.log(topsblog)
+                res.render("home", {
 
+                  startingContent: homeStartingContent,
+                  posts: doc.reverse(),
+                  userName: currentUserName,
+                  messages:mess,
+                  islogin:false,
+                  topssblog:topsblog
+                  });
+              }
+            })
           }
 
         })
@@ -242,7 +281,10 @@ app.get("/home",function(req,res){
         }
       }
     })
+  }else{
+    res.redirect("/");
   }
+
 })
 
 app.get("/compose", function(req, res){
@@ -253,12 +295,14 @@ app.get("/compose", function(req, res){
         console.log(err)
       }else{
         if(user.level === "1"){
-          res.render("compose")
+          res.render("compose",{islogin:true,userName:user.name})
         }else{
           res.redirect("/");
         }
       }
     })
+  }else{
+    res.redirect("/");
   }
   
 });
@@ -270,6 +314,7 @@ app.post("/compose", function(req, res){
    const monthsInEng=["January","February","March","April","May","Junne","July","August","September","October","November","December"]
    const postTitle = req.body.postTitle;
    const postBody = req.body.postBody;
+   const postsub = req.body.subject;
    const date = new Date();
    const year = date.getFullYear();
    const month =  monthsInEng[date.getMonth()] ;
@@ -279,6 +324,7 @@ app.post("/compose", function(req, res){
     title:postTitle,
     content:postBody,
     time: time,
+    subject:postsub,
     starUser:[],
     comment:[]
 
@@ -293,12 +339,7 @@ app.post("/compose", function(req, res){
     }
    })
   
-  const post = {
-    title: req.body.postTitle,
-    content: req.body.postBody
-  };
 
-  posts.push(post);
 
   res.redirect("/");
 
@@ -306,6 +347,37 @@ app.post("/compose", function(req, res){
 
 app.get("/posts/:postName", function(req, res){
   const requestedTitle = _.lowerCase(req.params.postName);
+  if(req.isAuthenticated()){
+    const userid= req.session.passport.user;
+    User.findOne({
+      _id:userid
+    },function(err,user){
+      if(err){
+        console.log(err)
+      }else{
+       const islevel = user.level;
+        Blog.find({},function(err,docs){
+          if(err){
+            console.log(err);
+          }else if(docs){
+            docs.forEach(function(doc){
+              const storedTitle = _.lowerCase(doc.title);
+          
+              if (storedTitle === requestedTitle) {
+                res.render("post", {
+                  post:doc,
+                  islogin :true,
+                  level:islevel
+                });
+              }
+            });
+          }
+        })
+      }
+    })
+
+  }else{
+  
   Blog.find({},function(err,docs){
     if(err){
       console.log(err);
@@ -315,12 +387,14 @@ app.get("/posts/:postName", function(req, res){
     
         if (storedTitle === requestedTitle) {
           res.render("post", {
-            post:doc
+            post:doc,
+            islogin :false,
+            level:"2"
           });
         }
       });
     }
-  })
+  })}
 
   
 
@@ -419,6 +493,47 @@ app.post("/blogMessages",function(req,res){
   }
   
 })
+
+app.post("/topartical",function(req,res){
+  if(req.isAuthenticated()){
+    const userid = req.session.passport.user;
+    const newtitle = req.body.title;
+    const starcount = req.body.starcount;
+    User.findOne({_id:userid},function(err,user){
+      if(err){
+        console.log(err)
+      }else{
+        const userlevel = user.level;
+        if(userlevel === "1"){
+          Topblog.deleteOne({title:newtitle},function(err,result){
+            if(err){
+              console.log(err)
+            }else{
+              console.log(result);
+              Topblog.insertMany([{title:newtitle,star:starcount}],function(err,doc){
+                if(err){
+                  console.log(err)
+                }else{
+                  console.log(doc);
+                    res.redirect("/");
+                  }
+                })
+              }})
+            }else{
+              res.redirect("/");
+            }
+          }})
+
+
+        } else{
+          res.redirect("/");
+        }
+      }
+    );
+ 
+
+
+
 app.get("/update/:postName",function(req,res){
   const requestedTitle = _.lowerCase(req.params.postName);
   Blog.find({},function(err,docs){
@@ -503,6 +618,59 @@ Blog.findOne({_id:blogid},function(err,blog){
             console.log(err);
           }else{
             res.redirect("/");
+          }
+         });
+      }
+    }
+  }
+})
+  }else{
+    res.redirect("/login");
+  }
+})
+
+app.post("/starclicks",function(req,res){
+  console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+  if(req.isAuthenticated()){
+const user = req.session.passport.user;
+const blogid = req.body.postid;
+
+console.log(user);
+console.log(blogid);
+Blog.findOne({_id:blogid},function(err,blog){
+  if(err){
+    console.log(err)
+  }else if(blog){
+    const blogtitle = blog.title;
+    if(blog.starUser.length ===0){
+      Blog.updateOne({
+        _id:blogid
+      },{starUser:[user]},function(err,result){
+        if (err){
+          console.log(err)
+        }else{
+          res.redirect("/posts/:"+blogtitle);
+        }
+      })
+    }else{
+      let starUser = blog.starUser;
+      
+      if(starUser.includes(user)){
+       const  newstarUser = starUser.filter((num)=>num!==user);
+       Blog.updateOne({_id:blogid},{starUser:newstarUser},function(err,resul){
+        if(err){
+          console.log(err);
+        }else{
+          res.redirect("/posts/:"+blogtitle);
+        }
+       })
+      }else{
+        starUser.push(user);
+        Blog.updateOne({_id:blogid},{starUser:starUser},function(err,resul){
+          if(err){
+            console.log(err);
+          }else{
+            res.redirect("/posts/:"+blogtitle);
           }
          });
       }

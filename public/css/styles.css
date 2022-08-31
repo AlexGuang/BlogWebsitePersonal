@@ -397,3 +397,58 @@ transform: translate(-50% -50%);
 .fa-user-large{
   color:orange;
 }
+.managerbox{
+  position: absolute;
+  left:75%;
+  top:100px;
+
+}
+.mangerbutton{
+  width: 100px;
+  margin-top: 10px;
+}
+.blog-detail{
+  position: absolute;
+  left:55%;
+  top:120px;
+  font-size: 22px;
+  color:purple;
+
+}
+.blog-detail button{
+  width: 40px;
+  text-align: center;
+  position: relative;
+}
+.button-li{
+  position:absolute;
+  left:-50px;
+}
+.blog-detail p{
+  display: inline-block;
+
+ 
+}
+.blog-detail-p{
+  position: absolute;
+  left:59%;
+  top:118px;
+
+}
+
+
+.top-li{
+  position: relative;
+}
+.top-p{
+  position:absolute;
+  right:10px;
+}
+.input-right{
+  position: absolute;
+  right:0%;
+  top:-5%;
+}
+.form-group{
+  position: relative;
+}
