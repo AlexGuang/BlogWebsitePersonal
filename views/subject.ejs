@@ -1,9 +1,9 @@
 
 <%- include("partials/header"); -%>
 <% if(islogin){ %>
- <h1>登录了</h1>
+ <h1>登录了<%= subject %> </h1>
  <% }else{ %>
-   <h1>没登录</h1>
+   <h1>没登录<%= subject %></h1>
    <% } %>   
  <div class="container">
 
@@ -60,22 +60,21 @@ document.getElementById(a).submit();
        </div>
        <div class="sidebar-module">
          <h4>Archives</h4>
-         <ol class="list-unstyled">
-           <li><a href="#">HTML</a></li>
-           <li><a href="#">CSS</a></li>
-           <li><a href="#">Javascript</a></li>
-           <li><a href="#">Node.js</a></li>
-           <li><a href="#">EJS</a></li>
-           <li><a href="#">React.js</a></li>
-           <li><a href="#">MongoDB</a></li>
-           <li><a href="#">AWS Cloud Service</a></li>
-           <li><a href="#">C#</a></li>
-           <li><a href="#">.Net</a></li>
-           <li><a href="#">MS SQLServer</a></li>
-           <li><a href="#">HTTP</a></li>
-           <li><a href="#">UNITY3D</a></li>
-           <li><a href="#">Data Structures and Algorithms</a></li>
-         </ol>
+         <li><a href="/subjects/:HTML">HTML</a></li>
+         <li><a href="/subjects/:CSS">CSS</a></li>
+         <li><a href="/subjects/:Javascript">Javascript</a></li>
+         <li><a href="/subjects/:Node.js">Node.js</a></li>
+         <li><a href="/subjects/:EJS">EJS</a></li>
+         <li><a href="/subjects/:React.js">React.js</a></li>
+         <li><a href="/subjects/:MongoDB">MongoDB</a></li>
+         <li><a href="/subjects/:AWS Cloud Service">AWS Cloud Service</a></li>
+         <li><a href="/subjects/:C#">C#</a></li>
+         <li><a href="/subjects/:.Net">.Net</a></li>
+         <li><a href="/subjects/:MS SQLServer">MS SQLServer</a></li>
+         <li><a href="/subjects/:HTTP">HTTP</a></li>
+         <li><a href="/subjects/:UNITY3D">UNITY3D</a></li>
+         <li><a href="/subjects/:Data Structures and Algorithms">Data Structures and Algorithms</a></li>
+       </ol>
        </div>
        <div class="sidebar-module">
          <h4>Elsewhere</h4>
@@ -125,7 +124,7 @@ document.getElementById(a).submit();
            <span aria-hidden="true">&laquo;</span>
          </a>
        </li>
-       <li><a href="/home">1</a></li>
+       <li><a href="/home/1">1</a></li>
        <li><a href="/home/2">2</a></li>
        <li><a href="/home/3">3</a></li>
        <li><a href="/home/4">4</a></li>

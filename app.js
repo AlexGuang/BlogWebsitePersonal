@@ -13,7 +13,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require("mongoose-findorcreate");
 const { min } = require('lodash');
 
-const homeStartingContent = "Welcome to my first blog post!  I am so excited to be writing this right now.As a beginner for programmer. I finally have my personal site being able to share ideas. That's a milestone, so fun and exciting to me. For my blog, this space will be a little bit of everything on my learning journey.  From HTML, CSS, Javascript, SQL,Database, MongoDB, and personal life perspectives.If you think Olivia's blog is good, you can share the link to your friends or give it a star! it means a lot to me HAHA.I just wanted to say thank you so much for just being here and reading my first blog.Hope you continue to follow along! Thanks again, friends!";
+const homeStartingContent = "I am Jingyao (Olivia), thank you for visiting my first blog post!  I am so excited to be writing this right now. As a beginner for programmer. I finally have my personal site being able to share ideas. That's a milestone, so fun and exciting to me. For my blog, this space will be a little bit of everything on my learning journey.  From HTML, CSS, Javascript, databasese such as MYSQL, MongoDB, and personal life perspectives. If you think Olivia's blog is good, you can share the link to your friends or give it a star! It means a lot to me HAHA. I just wanted to say thank you so much for just being here and reading my first blog. Hope you continue to follow along! Thanks again, friends!";
 const aboutContent = "Hac habitasse platea dictumst vestibulum rhoncus est pellentesque. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Non diam phasellus vestibulum lorem sed. Platea dictumst quisque sagittis purus sit. Egestas sed sed risus pretium quam vulputate dignissim suspendisse. Mauris in aliquam sem fringilla. Semper risus in hendrerit gravida rutrum quisque non tellus orci. Amet massa vitae tortor condimentum lacinia quis vel eros. Enim ut tellus elementum sagittis vitae. Mauris ultrices eros in cursus turpis massa tincidunt dui.";
 const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rhoncus urna neque viverra justo nec ultrices. Arcu dui vivamus arcu felis bibendum. Consectetur adipiscing elit duis tristique. Risus viverra adipiscing at in tellus integer feugiat. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Consequat interdum varius sit amet mattis. Iaculis nunc sed augue lacus. Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit. Pulvinar elementum integer enim neque. Ultrices gravida dictum fusce ut placerat orci nulla. Mauris in aliquam sem fringilla ut morbi tincidunt. Tortor posuere ac ut consequat semper viverra nam libero.";
 
@@ -70,7 +70,9 @@ const userSchema = new mongoose.Schema({
   type:String,
 
 
- }
+ },
+ fname:String,
+gname:String
 });
 userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(findOrCreate);
@@ -100,6 +102,7 @@ passport.use(new GoogleStrategy({
   callbackURL: "http://localhost:3000/auth/google/blogs"
 },
 function(accessToken, refreshToken, profile, done) {
+  console.log(profile);
   User.findOne({
     "googleid": profile.id 
 }, function(err, user) {
@@ -115,7 +118,9 @@ function(accessToken, refreshToken, profile, done) {
             // provider: 'facebook',
             // //now in the future searching on User.findOne({'facebook.id': profile.id } will match because of this next line
             // facebook: profile._json
-            googleid:profile.id
+            googleid:profile.id,
+            fname:profile.name.familyName,
+            gname:profile.name.givenName
             
         });
         user.save(function(err) {
@@ -144,6 +149,7 @@ app.get("/", function(req, res){
       }else{
         console.log(doc);
         currentUserName = doc.name.charAt(0).toUpperCase() + doc.name.slice(1);
+        givenName= doc.gname.charAt(0).toUpperCase() + doc.gname.slice(1);
         console.log("?#?#?#?#?#?#?#??#?#?#?#?#?#?#?#??#?#?#?#?#")
     Blog.find({},function(err,doc){
       if(err){
@@ -174,7 +180,8 @@ app.get("/", function(req, res){
                         userName: currentUserName,
                         messages:mess,
                         islogin:true,
-                        topssblog:topsblog
+                        topssblog:topsblog,
+                        givenname:givenName
                         });
                     }
                   })
@@ -344,6 +351,118 @@ app.post("/compose", function(req, res){
   res.redirect("/");
 
 });
+app.get("/subjects/:subjectName", function(req, res){
+  
+  const subjects = req.params.subjectName;
+  console.log(subjects);
+  let client = "Guest";
+  if(req.isAuthenticated()){
+    const userid = req.session.passport.user;
+    User.findOne({_id:userid},function(err,user){
+      if(err){
+        console.log(err)
+      }else{
+        client = user.name;
+        Blog.find({subject:subjects},function(err,blogs){
+          if(err){
+            console.log(err)
+          }else{
+            const posts = blogs;
+            console.log("打印科目");
+            console.log(posts);
+            Message.find({},function(err,mess){
+              if(err){
+                console.log(err)
+              }else{
+
+                Topblog.find({},function(err,topblog){
+                  if(err){
+                    console.log(err)
+                  }else{
+                    let topsblog = [];
+                    let blogtop = topblog.reverse();
+                    for(let i =0 ;i< Math.min(10,blogtop.length);i++){
+                      topsblog.push(blogtop[i]);
+
+                    }
+                    console.log("打印出来")
+            //  console.log(topsblog)
+                    res.render("home", {
+    
+                      startingContent: homeStartingContent,
+                      posts: posts,
+                      userName: client,
+                      messages:mess,
+                      islogin:true,
+                      topssblog:topsblog,
+                      subject:subjects
+            
+                      });
+                  }
+                })
+
+               
+
+              }
+
+            })
+
+
+          }
+        })
+      }
+    })
+  }else{
+    Blog.find({subject:subjects},function(err,blogs){
+      if(err){
+        console.log(err)
+      }else{
+        const posts = blogs;
+        console.log("打印科目");
+        console.log(posts);
+        Message.find({},function(err,mess){
+          if(err){
+            console.log(err)
+          }else{
+
+            Topblog.find({},function(err,topblog){
+              if(err){
+                console.log(err)
+              }else{
+                let topsblog = [];
+                let blogtop = topblog.reverse();
+                for(let i =0 ;i< Math.min(10,blogtop.length);i++){
+                  topsblog.push(blogtop[i]);
+
+                }
+                console.log("打印出来")
+         // console.log(topsblog)
+                res.render("home", {
+
+                  startingContent: homeStartingContent,
+                  posts: posts,
+                  userName: client,
+                  messages:mess,
+                  islogin:false,
+                  topssblog:topsblog,
+                  subject:subjects
+        
+                  });
+              }
+            })
+
+           
+
+          }
+
+        })
+
+
+      }
+    })
+
+  }
+})
 
 app.get("/posts/:postName", function(req, res){
   const requestedTitle = _.lowerCase(req.params.postName);
@@ -689,6 +808,8 @@ app.get("/home/:number",function(req,res){
   const pageNum = req.params.number;
    function getuser(callback){
     let currentUserName ="Guest";
+    let login = false;
+    let givenName = "Guest";
     if(req.isAuthenticated()){
       
        
@@ -700,11 +821,13 @@ app.get("/home/:number",function(req,res){
         }else{
           console.log("显示用户信息："+doc);
           currentUserName = doc.name.charAt(0).toUpperCase() + doc.name.slice(1);
+          givenName= doc.gname.charAt(0).toUpperCase() + doc.gname.slice(1);
           console.log("确认一下这个人名："+currentUserName);
-          callback(currentUserName);
+          login = true;
+          callback(currentUserName,login,givenName);
         }});
     }else{
-      callback(currentUserName);
+      callback(currentUserName,login,givenName);
     }
    
 
@@ -712,7 +835,7 @@ app.get("/home/:number",function(req,res){
   getuser(getblog);
  
     
-  function getblog(username){
+  function getblog(username,login,givenName){
     console.log("当前是第"+pageNum+"页");
   Blog.find({},function(err,doc){
     if(err){
@@ -740,6 +863,18 @@ app.get("/home/:number",function(req,res){
           if(err){
             console.log(err)
           }else{
+            Topblog.find({},function(err,topblog){
+              if(err){
+                console.log(err)
+              }else{
+                let topsblog = [];
+                let blogtop = topblog.reverse();
+                for(let i =0 ;i< Math.min(10,blogtop.length);i++){
+                  topsblog.push(blogtop[i]);
+
+                }
+                console.log("打印出来");
+          console.log(topsblog);
          
          res.render("homePages", {
        
@@ -748,7 +883,11 @@ app.get("/home/:number",function(req,res){
            pageshowNum:intpageNum,
            maxPage:maxPageNum,
            userName:username,
-           messages:mess})
+           messages:mess,
+           islogin:login,
+           givenname:givenName,
+           topssblog:topsblog
+})}})
    
            }});
 
@@ -768,6 +907,18 @@ app.get("/home/:number",function(req,res){
           if(err){
             console.log(err)
           }else{
+            Topblog.find({},function(err,topblog){
+              if(err){
+                console.log(err)
+              }else{
+                let topsblog = [];
+                let blogtop = topblog.reverse();
+                for(let i =0 ;i< Math.min(10,blogtop.length);i++){
+                  topsblog.push(blogtop[i]);
+
+                }
+                console.log("打印出来");
+          console.log(topsblog);
          
          res.render("homePages", {
        
@@ -776,7 +927,10 @@ app.get("/home/:number",function(req,res){
            pageshowNum:intpageNum,
            maxPage:maxPageNum,
            userName:username,
-           messages:mess})
+           messages:mess,
+           islogin:login,
+           givenname:givenName,
+           topssblog:topsblog})
    
            }});
 
@@ -785,7 +939,7 @@ app.get("/home/:number",function(req,res){
 
 
      
-    }})
+    })}
   }
 
   });

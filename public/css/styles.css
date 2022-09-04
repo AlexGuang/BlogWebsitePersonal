@@ -82,6 +82,9 @@ a:hover{
 }
 .home-blog-title{
   display: inline-block;
+  font-family: 'Great Vibes', cursive;
+  font-weight: 700;
+
 }
 .home-blog-title-guest{
   display: inline-block;
@@ -452,3 +455,15 @@ transform: translate(-50% -50%);
 .form-group{
   position: relative;
 }
+.cheers-name{
+  font-family: 'Sacramento', cursive;
+  font-size: 30px;
+  font-weight: 700;
+  margin: 0;
+
+}
+.cheers-hello{
+  margin-top: 0;
+}
+.post-title{
+  color:rgb(73,100,233);}

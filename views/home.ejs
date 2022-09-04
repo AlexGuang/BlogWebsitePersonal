@@ -8,7 +8,7 @@
     <div class="container">
 
       <div class="blog-header">
-        <h1 class="home-blog-title">Welcome,</h1><h1 class="home-blog-title-guest">  </h1><h1 class="home-blog-title-guest"> &nbsp;<%= userName %> !</h1>
+        <h1 class="home-blog-title">Welcome ,</h1><h1 class="home-blog-title-guest">  </h1><h1 class="home-blog-title-guest"> &nbsp;<%= userName %> </h1>
         <p class="lead blog-description"><%= startingContent %></p>
       </div>
 <hr />
@@ -17,12 +17,12 @@
         <div class="col-sm-8 blog-main">
           <%  posts.forEach(function(post){ %>
           <div class="blog-post">
-            <h2 class="blog-post-title"><%=post.title%></h2>
+            <h2 class="blog-post-title post-title"><%=post.title%></h2>
             <p class="blog-post-meta color-brown" >
               <%= post.time  %>
               <form action="/starclick" method="post" id="<%= post._id  %>" >
                 <input type="hidden" name = "postid" value = <%= post._id %> >
-                <button type="submit"><i  class="fa-solid fa-star color-orange " ></i></button> &nbsp;<%=post.starUser.length %>
+                <button type="submit"><i  class="fa-solid fa-star color-orange " ></i></button> &nbsp;<%=post.starUser.length %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h4 style="display:inline-block;color:cornflowerblue"><%=post.subject %> </h4>
               </form>
               
                
@@ -49,7 +49,8 @@
                 <li >
                <a href="/posts/:<%= topblog.title %> " ><%=  topblog.title  %> </a> &nbsp;&nbsp;
                 <i  class="fa-solid fa-star color-orange " ></i>
-                &nbsp;<%=topblog.star %></li>
+                &nbsp;<%=topblog.star %>&nbsp;&nbsp;
+              </li>
               <% }) %> 
             </ol>
 
@@ -61,20 +62,20 @@
           <div class="sidebar-module">
             <h4>Archives</h4>
             <ol class="list-unstyled">
-              <li><a href="#">HTML</a></li>
-              <li><a href="#">CSS</a></li>
-              <li><a href="#">Javascript</a></li>
-              <li><a href="#">Node.js</a></li>
-              <li><a href="#">EJS</a></li>
-              <li><a href="#">React.js</a></li>
-              <li><a href="#">MongoDB</a></li>
-              <li><a href="#">AWS Cloud Service</a></li>
-              <li><a href="#">C#</a></li>
-              <li><a href="#">.Net</a></li>
-              <li><a href="#">MS SQLServer</a></li>
-              <li><a href="#">HTTP</a></li>
-              <li><a href="#">UNITY3D</a></li>
-              <li><a href="#">Data Structures and Algorithms</a></li>
+              <li><a href="/subjects/HTML">HTML</a></li>
+              <li><a href="/subjects/CSS">CSS</a></li>
+              <li><a href="/subjects/Javascript">Javascript</a></li>
+              <li><a href="/subjects/Node.js">Node.js</a></li>
+              <li><a href="/subjects/EJS">EJS</a></li>
+              <li><a href="/subjects/React.js">React.js</a></li>
+              <li><a href="/subjects/MongoDB">MongoDB</a></li>
+              <li><a href="/subjects/AWS Cloud Service">AWS Cloud Service</a></li>
+              <li><a href="/subjects/C#">C#</a></li>
+              <li><a href="/subjects/.Net">.Net</a></li>
+              <li><a href="/subjects/MS SQLServer">MS SQLServer</a></li>
+              <li><a href="/subjects/HTTP">HTTP</a></li>
+              <li><a href="/subjects/UNITY3D">UNITY3D</a></li>
+              <li><a href="/subjects/Data Structures and Algorithms">Data Structures and Algorithms</a></li>
             </ol>
           </div>
           <div class="sidebar-module">
@@ -125,7 +126,7 @@
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
-          <li><a href="/home">1</a></li>
+          <li><a href="/home/1">1</a></li>
           <li><a href="/home/2">2</a></li>
           <li><a href="/home/3">3</a></li>
           <li><a href="/home/4">4</a></li>
