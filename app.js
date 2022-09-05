@@ -942,7 +942,7 @@ app.get("/home/:number",function(req,res){
     })}
   }
 
-  });
+  })}});
 app.get("/delete/:postName",function(req,res){
   const requsetedTitle = req.params.postName;
   Blog.deleteOne({title:requsetedTitle},function(err,doc){
