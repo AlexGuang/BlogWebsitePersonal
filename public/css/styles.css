@@ -6,6 +6,10 @@ p{
   text-align:justify;
   font-size: 20px;
 }
+a:hover{
+  text-decoration: none;
+
+}
 navbar-inverse{
   color:white;
 }
@@ -371,18 +375,18 @@ transform: translate(-50% -50%);
 
 }
 .tablemessage{
- border:solid;
+ border:none;
  border-color: black;
  border-width: 1px;
 }
 .tablemessage-right{
-  border:solid;
+  border:none;
   border-left: none;
   border-color: black;
   border-width: 1px;
  }
  .tablemessage-left{
-  border:solid;
+  border:none;
   border-right: none;
   border-color: black;
   border-width: 1px;
@@ -413,10 +417,16 @@ transform: translate(-50% -50%);
 .blog-detail{
   position: absolute;
   left:55%;
-  top:120px;
+  top:60px;
   font-size: 22px;
   color:purple;
 
+}
+.blog-detail-num{
+  position: absolute;
+  left:55%;
+  top:53px;
+  font-size: 22px;
 }
 .blog-detail button{
   width: 40px;
@@ -435,7 +445,8 @@ transform: translate(-50% -50%);
 .blog-detail-p{
   position: absolute;
   left:59%;
-  top:118px;
+  top:63px;
+  font-size: 18px;
 
 }
 
@@ -466,4 +477,71 @@ transform: translate(-50% -50%);
   margin-top: 0;
 }
 .post-title{
-  color:rgb(73,100,233);}
+ 
+ color:rgb(73,100,233);}
+
+
+
+ .jumbotron h2{
+ position: absolute;
+ left:2%;
+ top:-2%;
+ }
+ .jumbotron form textarea{
+  margin-bottom: 5px;
+  position:absolute;
+  
+  left:2%;
+  right:2%;
+  top:20%;
+ }
+ .jumbotron form button{
+  position:absolute;
+ 
+  left:2%;
+
+  bottom:5%;
+ }
+
+
+ .jumbotron{
+  padding-top: 10px;
+ padding-bottom: 10px;
+ padding-left: 10px;
+ padding-right: 10px;
+ margin-top: 30px;
+ position: relative;
+ height: 280px;
+
+
+ }
+.blog-time{
+  color: purple;
+  font-size: 13px;
+}
+.sidebar-module{
+  margin-bottom: 50px;
+}
+.sidebar-module-p{
+  color:rgb(100,149,237)
+}
+.icon-link{
+  margin-top: 10;
+  margin-bottom: 25px;
+}
+.github{
+  color:black;
+}
+.facebook{
+  color:rgb(51,122,183)
+}
+.list-icon-link{
+  margin-top: 25px;
+}
+.side-h4{
+font-weight: 600;
+
+}
+.blog-post{
+  position: relative;
+}

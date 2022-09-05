@@ -8,68 +8,95 @@
     <p class="lead blog-description"><%= startingContent %></p>
   </div>
 <hr />
-  <div class="row">
+    <div class="row">
 
-    <div class="col-sm-8 blog-main">
-      <%  posts.forEach(function(post){ %>
-      <div class="blog-post">
-        <h2 class="blog-post-title"><%=post.title%></h2>
-        <p class="blog-post-meta color-brown" ><%= post.time  %> <a class="star-margin " href="#"><i class="fa-solid fa-star color-orange "></i><% post.starUser.length %> </a></p>
+      <div class="col-sm-8 blog-main">
+        <%  posts.forEach(function(post){ %>
+        <div class="blog-post">
+          <a href="/posts/:<%= post.title %> "><h3 class="blog-post-title post-title"><%=post.title%></h3></a>
+          <p class="blog-post-meta color-brown blog-time" >
+            <%= post.time  %>
+            <form action="/starclick" method="post" id="<%= post._id  %>" >
+              <input type="hidden" name = "postid" value = <%= post._id %> >
+              <button type="submit">
+                <i  class="fa-solid fa-star color-orange " ></i>
+              </button> &nbsp;<%=post.starUser.length %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <h4 style="display:inline-block;color:cornflowerblue"><%=post.subject %> </h4>
+            </form>
+            
+             
+            
+          </p>
 
-        <p> <%=post.content.substring(0, 400) + " ..."%> <a href="/posts/:<%= post.title %> ">read more</a></p>
-        <hr>
+          <p> <%=post.content.substring(0, 400) + " ..."%> <a href="/posts/:<%= post.title %> ">read more</a></p>
+          <hr>
+        </div>
+        <% }) %>
+        <div class="jumbotron">
+          <h2>Message Board</h2>
+          <form action="/homeMessages" method="post">
+            <textarea name="text" class="lead" rows="5" cols="67" placeholder="Please leave your messages here, thanks!" required ></textarea>
+          <button class="btn btn-lg btn-primary"  type="submit">Submit</button>
+  
+          </form>
+          
+        </div>
+       
+
       </div>
-      <% }) %>
-      
-      <div class="jumbotron">
-        <h2>Message Board</h2>
-        <form action="/homeMessages" method="post">
-          <textarea name="text" class="lead" rows="10" cols="55" placeholder="Please leave your messages here, thanks!" required ></textarea>
-        <button class="btn btn-lg btn-primary"  type="submit">Submit</button>
-
-        </form>
-        
-      </div>
-     
-    </div><!-- /.blog-main -->
    
+    
     
 
     <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-      <div class="sidebar-module sidebar-module-inset">
-        <h4>Top Articles</h4>
-        <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+     
+        <div class="sidebar-module sidebar-module-inset">
+          <h4 class="side-h4">Top Articles</h4>
+          <ol class="list-unstyled ">
+            <% topssblog.forEach(function(topblog){ %>
+              <li >
+             <a href="/posts/:<%= topblog.title %> " ><%=  topblog.title  %> </a> &nbsp;&nbsp;
+              <i  class="fa-solid fa-star color-orange " ></i>
+              &nbsp;<%=topblog.star %>&nbsp;&nbsp;
+            </li>
+            <% }) %> 
+          </ol>
+        </div>
+        <div class="sidebar-module">
+        <h4 class="side-h4">Archives</h4>
+        <ol class="list-unstyled">
+          <li class="sidebar-module-p"><a class="sidebar-module-p" href="/subjects/HTML">HTML</a></li>
+          <li class="sidebar-module-p"><a class="sidebar-module-p" href="/subjects/CSS">CSS</a></li>
+          <li class="sidebar-module-p"><a class="sidebar-module-p" href="/subjects/Javascript">Javascript</a></li>
+          <li class="sidebar-module-p"><a class="sidebar-module-p" href="/subjects/Node.js">Node.js</a></li>
+          <li class="sidebar-module-p"><a class="sidebar-module-p" href="/subjects/EJS">EJS</a></li>
+          <li class="sidebar-module-p"><a class="sidebar-module-p" href="/subjects/React.js">React.js</a></li>
+          <li class="sidebar-module-p"><a class="sidebar-module-p" href="/subjects/MongoDB">MongoDB</a></li>
+          <li class="sidebar-module-p"><a class="sidebar-module-p" href="/subjects/AWS Cloud Service">AWS Cloud Service</a></li>
+          <li class="sidebar-module-p"><a class="sidebar-module-p" href="/subjects/C#">C#</a></li>
+          <li class="sidebar-module-p"><a class="sidebar-module-p" href="/subjects/.Net">.Net</a></li>
+          <li class="sidebar-module-p"><a class="sidebar-module-p" href="/subjects/MS SQLServer">MS SQLServer</a></li>
+          <li class="sidebar-module-p"><a class="sidebar-module-p" href="/subjects/HTTP">HTTP</a></li>
+          <li class="sidebar-module-p"><a class="sidebar-module-p" href="/subjects/UNITY3D">UNITY3D</a></li>
+          <li class="sidebar-module-p"><a class="sidebar-module-p" href="/subjects/Data Structures and Algorithms">Data Structures and Algorithms</a></li>
+        </ol> 
       </div>
       <div class="sidebar-module">
-        <h4>Archives</h4>
-        <ol class="list-unstyled">
-          <li><a href="#">March 2014</a></li>
-          <li><a href="#">February 2014</a></li>
-          <li><a href="#">January 2014</a></li>
-          <li><a href="#">December 2013</a></li>
-          <li><a href="#">November 2013</a></li>
-          <li><a href="#">October 2013</a></li>
-          <li><a href="#">September 2013</a></li>
-          <li><a href="#">August 2013</a></li>
-          <li><a href="#">July 2013</a></li>
-          <li><a href="#">June 2013</a></li>
-          <li><a href="#">May 2013</a></li>
-          <li><a href="#">April 2013</a></li>
-        </ol>
-      </div>
-      <div class="sidebar-module">
-        <h4>Elsewhere</h4>
-        <ol class="list-unstyled">
-          <li><a href="https://github.com/YAOMVP">GitHub</a></li>
-          <li><a href="#">Twitter</a></li>
-          <li><a href="#">Facebook</a></li>
-        </ol>
-      </div>
+        <h4 class="side-h4">Elsewhere</h4>
+        <ol  class="list-unstyled list-icon-link">
+          <li class = "icon-link" ><a href="https://github.com/YAOMVP"><i class="fa-brands fa-github fa-2xl github "></i>&nbsp;&nbsp;GitHub</a></li>
+          <li class = "icon-link"><a href="#"><i class="fa-brands fa-twitter fa-2xl facebook"></i>&nbsp;&nbsp;Twitter</a></li>
+          <li class = "icon-link"><a href="#"><i class="fa-brands fa-facebook fa-2xl facebook"></i>&nbsp;&nbsp;Facebook</a></li>
+          <li class = "icon-link"><a href="#"><i class="fa-brands fa-linkedin fa-2xl facebook"></i></i>&nbsp;&nbsp;&nbsp;Linkin</a></li>
+        </ol> 
+      </div> 
+    
     </div><!-- /.blog-sidebar -->
+
 
    
   </div><!-- /.row -->
-
+<hr />
   <h2>Guest Comments</h2>
   <!-- <messages.forEach(function(message){ %>  -->
 

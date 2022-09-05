@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/styles.css">
-  <nav class="navbar navbar-default">
+  <nav class="navbar ">
     <div class="container">
       <div class="navbar-header">        
           <a href="/compose">
@@ -24,7 +24,7 @@
   </nav>
 
   <body>
-    <div class="container ">
+    <div class="container blog-post ">
       <% if(islogin&&level==="1") {%> 
         <div class="managerbox">
         <a href="/update/<%=post.title%> "><button class="btn btn-lg btn-primary mangerbutton">Update</button></a>
@@ -41,13 +41,14 @@
           <input type="hidden" name = "postid" value = <%= post._id %> >
          
 
-          <a onclick="document:starclick.submit()"><i class="fa-solid fa-star color-orange fa-xl button-li"></i></a>  &nbsp;<%=post.starUser.length %>
+          <a onclick="document:starclick.submit()"><i class="fa-solid fa-star color-orange fa-xl button-li"></i></a>  &nbsp;
         
         </form>
        
       </div>
-      <div class="blog-detail-p">
-        <p>Posted on <%= post.time %> </p>
+      <div class="blog-detail-num"><%=post.starUser.length %></div>
+      <div class="blog-detail-p blog-time">
+        Posted on <%= post.time %> 
       </div>
       
 
@@ -65,7 +66,7 @@
       <form action="/blogMessages" method="post">
         <input type="hidden" name = "id" value="<%= post.id %> ">
         <input type="hidden" name = "title" value = "<%= post.title %> ">
-        <textarea name="text" class="lead" rows="10" cols="55" placeholder="Please leave your messages here, thanks!" required ></textarea>
+        <textarea name="text" class="lead" rows="5" cols="55" placeholder="Please leave your messages here, thanks!" required ></textarea>
       <button class="btn btn-lg btn-primary"  type="submit">Submit</button>
 
       </form>

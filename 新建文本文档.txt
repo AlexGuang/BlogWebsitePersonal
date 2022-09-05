@@ -1,1 +1,78 @@
 http://localhost:3000/posts/:test145
+
+
+
+
+
+    <style>
+        body {
+            margin: 10px 60px;
+        }
+        
+        a {
+            text-decoration: none;
+            color: black;
+        }
+        
+        h1,
+        h4 {
+            margin: 0;
+        }
+        
+        p {
+            margin: 5px 0;
+        }
+        
+        .comment {
+            position: relative;
+            width: 60%;
+        }
+        
+        .top-comment {
+            display: flex;
+            color: grey;
+            font-size: 12px;
+        }
+        
+        .timestamp {
+            padding-right: 10px;
+        }
+        
+        .container {
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        
+        .container img {
+            float: left;
+            max-width: 60px;
+            width: 100%;
+            margin-right: 50px;
+            border-radius: 50%;
+        }
+        
+        .floor {
+            position: absolute;
+            bottom: 0;
+            right: 100px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="comment">
+        <div class="container">
+            <img src="111/headphoto transparent.png">
+            <p>What do you wanna do today?</p>
+            <span class="time-right">11:02</span>
+        </div>
+        <div class="top-comment">
+            <!-- <p class="user">Oli</p> -->
+            <p class="timestamp">05/09/2022</p>
+            <p class="floor"> 1 floor</p>
+        </div>
+    </div>
+
+</body>

@@ -13,9 +13,9 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require("mongoose-findorcreate");
 const { min } = require('lodash');
 
-const homeStartingContent = "I am Jingyao (Olivia), thank you for visiting my first blog post!  I am so excited to be writing this right now. As a beginner for programmer. I finally have my personal site being able to share ideas. That's a milestone, so fun and exciting to me. For my blog, this space will be a little bit of everything on my learning journey.  From HTML, CSS, Javascript, databasese such as MYSQL, MongoDB, and personal life perspectives. If you think Olivia's blog is good, you can share the link to your friends or give it a star! It means a lot to me HAHA. I just wanted to say thank you so much for just being here and reading my first blog. Hope you continue to follow along! Thanks again, friends!";
-const aboutContent = "Hac habitasse platea dictumst vestibulum rhoncus est pellentesque. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Non diam phasellus vestibulum lorem sed. Platea dictumst quisque sagittis purus sit. Egestas sed sed risus pretium quam vulputate dignissim suspendisse. Mauris in aliquam sem fringilla. Semper risus in hendrerit gravida rutrum quisque non tellus orci. Amet massa vitae tortor condimentum lacinia quis vel eros. Enim ut tellus elementum sagittis vitae. Mauris ultrices eros in cursus turpis massa tincidunt dui.";
-const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rhoncus urna neque viverra justo nec ultrices. Arcu dui vivamus arcu felis bibendum. Consectetur adipiscing elit duis tristique. Risus viverra adipiscing at in tellus integer feugiat. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Consequat interdum varius sit amet mattis. Iaculis nunc sed augue lacus. Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit. Pulvinar elementum integer enim neque. Ultrices gravida dictum fusce ut placerat orci nulla. Mauris in aliquam sem fringilla ut morbi tincidunt. Tortor posuere ac ut consequat semper viverra nam libero.";
+const homeStartingContent = "";
+const aboutContent = "I am Jingyao (Olivia), thank you for visiting my first blog post!  I am so excited to be writing this right now. As a beginner for programmer. I finally have my personal site being able to share ideas. That's a milestone, so fun and exciting to me. For my blog, this space will be a little bit of everything on my learning journey.  From HTML, CSS, Javascript, databasese such as MYSQL, MongoDB, and personal life perspectives. If you think Olivia's blog is good, you can share the link to your friends or give it a star! It means a lot to me HAHA. I just wanted to say thank you so much for just being here and reading my first blog. Hope you continue to follow along! Thanks again, friends!";
+const contactContent = "Email: oliviachen797@gmail.com";
 
 const app = express();
 const ObjectID = require("mongodb").ObjectId;
@@ -139,111 +139,112 @@ function(accessToken, refreshToken, profile, done) {
 
 
 app.get("/", function(req, res){
-  let currentUserName ="Guest";
-  if(req.isAuthenticated()){
-    const _id = ObjectID(req.session.passport.user);
-    console.log("id:"+_id);
-    User.findOne({_id:_id},(err,doc)=>{
-      if (err){
-        console.log(err);
-      }else{
-        console.log(doc);
-        currentUserName = doc.name.charAt(0).toUpperCase() + doc.name.slice(1);
-        givenName= doc.gname.charAt(0).toUpperCase() + doc.gname.slice(1);
-        console.log("?#?#?#?#?#?#?#??#?#?#?#?#?#?#?#??#?#?#?#?#")
-    Blog.find({},function(err,doc){
-      if(err){
-        console.log(err);
+  res.redirect("/home/1");
+  // let currentUserName ="Guest";
+  // if(req.isAuthenticated()){
+  //   const _id = ObjectID(req.session.passport.user);
+  //   console.log("id:"+_id);
+  //   User.findOne({_id:_id},(err,doc)=>{
+  //     if (err){
+  //       console.log(err);
+  //     }else{
+  //       console.log(doc);
+  //       currentUserName = doc.name.charAt(0).toUpperCase() + doc.name.slice(1);
+  //       givenName= doc.gname.charAt(0).toUpperCase() + doc.gname.slice(1);
+  //       console.log("?#?#?#?#?#?#?#??#?#?#?#?#?#?#?#??#?#?#?#?#")
+  //   Blog.find({},function(err,doc){
+  //     if(err){
+  //       console.log(err);
   
-      }else{
-              Message.find({},function(err,mess){
-                if(err){
-                  console.log(err)
-                }else{
+  //     }else{
+  //             Message.find({},function(err,mess){
+  //               if(err){
+  //                 console.log(err)
+  //               }else{
 
-                  Topblog.find({},function(err,topblog){
-                    if(err){
-                      console.log(err)
-                    }else{
-                      let topsblog = [];
-                      let blogtop = topblog.reverse();
-                      for(let i =0 ;i< Math.min(10,blogtop.length);i++){
-                        topsblog.push(blogtop[i]);
+  //                 Topblog.find({},function(err,topblog){
+  //                   if(err){
+  //                     console.log(err)
+  //                   }else{
+  //                     let topsblog = [];
+  //                     let blogtop = topblog.reverse();
+  //                     for(let i =0 ;i< Math.min(10,blogtop.length);i++){
+  //                       topsblog.push(blogtop[i]);
 
-                      }
-                      console.log("打印出来")
-                console.log(topsblog)
-                      res.render("home", {
+  //                     }
+  //                     console.log("打印出来")
+  //               console.log(topsblog)
+  //                     res.render("home", {
       
-                        startingContent: homeStartingContent,
-                        posts: doc.reverse(),
-                        userName: currentUserName,
-                        messages:mess,
-                        islogin:true,
-                        topssblog:topsblog,
-                        givenname:givenName
-                        });
-                    }
-                  })
+  //                       startingContent: homeStartingContent,
+  //                       posts: doc.reverse(),
+  //                       userName: currentUserName,
+  //                       messages:mess,
+  //                       islogin:true,
+  //                       topssblog:topsblog,
+  //                       givenname:givenName
+  //                       });
+  //                   }
+  //                 })
 
                  
 
-                }
+  //               }
 
-              })
+  //             })
         
         
-      }
-    })
-      }
-      ;
+  //     }
+  //   })
+  //     }
+  //     ;
 
-    })
+  //   })
     
-  }else{
+  // }else{
     
-    console.log("///////////////////////")
-    Blog.find({},function(err,doc){
-      if(err){
-        console.log(err);
+  //   console.log("///////////////////////")
+  //   Blog.find({},function(err,doc){
+  //     if(err){
+  //       console.log(err);
   
-      }else{
+  //     }else{
               
         
-        Message.find({},function(err,mess){
-          if(err){
-            console.log(err)
-          }else{
-            Topblog.find({},function(err,topblog){
-              if(err){
-                console.log(err)
-              }else{
-                let topsblog = [];
-                let blogtop = topblog.reverse();
-                for(let i =0 ;i< Math.min(10,blogtop.length);i++){
-                  topsblog.push(blogtop[i]);
+  //       Message.find({},function(err,mess){
+  //         if(err){
+  //           console.log(err)
+  //         }else{
+  //           Topblog.find({},function(err,topblog){
+  //             if(err){
+  //               console.log(err)
+  //             }else{
+  //               let topsblog = [];
+  //               let blogtop = topblog.reverse();
+  //               for(let i =0 ;i< Math.min(10,blogtop.length);i++){
+  //                 topsblog.push(blogtop[i]);
 
-                }
-                console.log("打印出来")
-                console.log(topsblog)
-                res.render("home", {
+  //               }
+  //               console.log("打印出来")
+  //               console.log(topsblog)
+  //               res.render("home", {
 
-                  startingContent: homeStartingContent,
-                  posts: doc.reverse(),
-                  userName: currentUserName,
-                  messages:mess,
-                  islogin:false,
-                  topssblog:topsblog
-                  });
-              }
-            })
-          }
+  //                 startingContent: homeStartingContent,
+  //                 posts: doc.reverse(),
+  //                 userName: currentUserName,
+  //                 messages:mess,
+  //                 islogin:false,
+  //                 topssblog:topsblog
+  //                 });
+  //             }
+  //           })
+  //         }
 
-        })
-      }
-    })
+  //       })
+  //     }
+  //   })
 
-  }
+  // }
   
  
 });
@@ -259,16 +260,51 @@ app.get("/auth/google/blogs",
   });
 
 app.get("/about", function(req, res){
-  res.render("about", {aboutContent: aboutContent});
+  let islog= false;
+  let given = "Guest"
+  if(req.isAuthenticated()){
+   const userid = req.session.passport.user;
+   User.findOne({_id:userid},function(err,user){
+     if(err){
+       console.log(err)
+     }else{
+       given = user.gname;
+       islog= true;
+       res.render("about", {aboutContent: aboutContent,givenname:given,islogin:islog});
+  
+     }
+   })
+  }else{
+    res.render("about", {aboutContent: aboutContent,givenname:given,islogin:islog});
+
+  }
+    
+
+
+
 });
 
 app.get("/contact", function(req, res){
-  console.log("contact");
-  if(req.isAuthenticated()){
-    res.render("contact", {contactContent: contactContent});
-  }else{
-    res.redirect("/about");
-  }
+  let given = "Guest";
+  let islog= false;
+ if(req.isAuthenticated()){
+  const userid = req.session.passport.user;
+  User.findOne({_id:userid},function(err,user){
+    if(err){
+      console.log(err)
+    }else{
+      islog= true;
+      given = user.gname;
+      res.render("contact", {contactContent: contactContent,givenname:given,islogin:islog});
+ 
+    }
+  })
+ }else{
+  res.render("contact", {contactContent: contactContent,givenname:given,islogin:islog});
+
+ }
+    
+ 
 
   
 });
@@ -356,6 +392,7 @@ app.get("/subjects/:subjectName", function(req, res){
   const subjects = req.params.subjectName;
   console.log(subjects);
   let client = "Guest";
+  let given ="Guest";
   if(req.isAuthenticated()){
     const userid = req.session.passport.user;
     User.findOne({_id:userid},function(err,user){
@@ -363,6 +400,7 @@ app.get("/subjects/:subjectName", function(req, res){
         console.log(err)
       }else{
         client = user.name;
+        given = user.gname;
         Blog.find({subject:subjects},function(err,blogs){
           if(err){
             console.log(err)
@@ -395,7 +433,8 @@ app.get("/subjects/:subjectName", function(req, res){
                       messages:mess,
                       islogin:true,
                       topssblog:topsblog,
-                      subject:subjects
+                      subject:subjects,
+                      givenname:given
             
                       });
                   }
@@ -445,7 +484,8 @@ app.get("/subjects/:subjectName", function(req, res){
                   messages:mess,
                   islogin:false,
                   topssblog:topsblog,
-                  subject:subjects
+                  subject:subjects,
+                  givenname:given
         
                   });
               }
@@ -985,7 +1025,8 @@ app.get("/unauthorized",function(req,res){
 });
 
 app.post("/homeMessages",function(req,res){
-  const usersid = ObjectID(req.session.passport.user);
+  if(req.isAuthenticated()){
+    const usersid = ObjectID(req.session.passport.user);
   User.findOne({_id:usersid},function(err,doc){
     if(err){
       console.log(err)
@@ -1014,7 +1055,12 @@ app.post("/homeMessages",function(req,res){
     }
   })
 
-  res.redirect("/about");
+  res.redirect("/");
+
+  }else{
+    res.redirect("/login");
+  }
+  
 })
 
 
