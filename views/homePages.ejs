@@ -32,23 +32,48 @@
           <hr>
         </div>
         <% }) %>
-        <div class="jumbotron">
-          <h2>Message Board</h2>
-          <form action="/homeMessages" method="post">
-            <textarea name="text" class="lead" rows="5" cols="67" placeholder="Please leave your messages here, thanks!" required ></textarea>
-          <button class="btn btn-lg btn-primary"  type="submit">Submit</button>
-  
-          </form>
+        <div id ="message-board" >
+          <div class="jumbotron">
+            <h2>Message Board</h2>
+            <form action="/homeMessages" method="post">
+              <textarea name="text" class="lead" rows="5" cols="67" placeholder="Please leave your messages here, thanks!" required ></textarea>
+            <button class="btn btn-lg btn-primary"  type="submit">Submit</button>
+    
+            </form>
+            
+          </div>
           
         </div>
-       
+      
+        <h2 class="guest-comments">Guest Comments</h2>
+
+        <% for ( i = 0; i< messages.length;i++){ %> 
+          <div class = "comment-test">
+        <hr />
+            <div class="comment-icon1">
+              <i class="fa-solid fa-user-large fa-4x container-img1 color-blue-fas"></i>
+              <p class="comment-icon1-p" >  Floor<%= i+1 %> </p>
+            </div>
+            <div class="comment-details1">
+              <div class="comment-details-header">
+                <%= messages[i].name %>
+              </div>
+              <div class="comment-details-body">
+                <p><%= messages[i].content %>  </p>
+              </div>
+              <div class="comment-details-footer">
+                <%= messages[i].time %>
+              </div>
+            </div>
+          </div>
+          <% }%> 
 
       </div>
    
     
     
 
-    <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+    <div id="siders" class="col-sm-3 col-sm-offset-1 blog-sidebar ">
      
         <div class="sidebar-module sidebar-module-inset">
           <h4 class="side-h4">Top Articles</h4>
@@ -96,43 +121,29 @@
 
    
   </div><!-- /.row -->
-<hr />
-  <h2>Guest Comments</h2>
-  <!-- <messages.forEach(function(message){ %>  -->
-
-    <% for ( i = 0; i< messages.length;i++){ %> 
-  <div class="row messagesbox">
-    <div class="col-lg-1  guesticon tablemessage-left">
-      <h4>
-        Floor<%= i+1 %> 
-      </h4>
-     
-    </div>
-    <div class="col-lg-2 guesticon tablemessage">
-      <div class="messagep-son-left">
-        <i class="fa-solid fa-user-large fa-7x"></i>
-        <h3><%= messages[i].name %></h3>
-      <h5 style = "color:#EE6983;"><%= messages[i].time %> </h5>
-      </div>
-      
-      
-    </div>
-    <div class="col-lg-9 messagep tablemessage-right">
-      <div class="messagep-son-right">
-        <p><%= messages[i].content %>  </p>
-      </div>
-     
-      
-      
-    </div>
-  </div>
-  <% }%> 
 
 
+
+    
+
+ 
 
 
 
 </div><!-- /.container -->
+
+
+
+
+
+
+<div class="row">
+
+  <div class="col-sm-8 blog-main">
+    <hr />
+    </div>
+    </div>
+
 <div class="container text-center">
   <nav aria-label="Page navigation">
     <ul class="pagination">
@@ -178,7 +189,25 @@
     </ul>
   </nav>
 </div>
-
+<script>
+  const navbar = document.getElementById("message-board");
+  const siders = document.getElementById("siders");
+  let sticky = navbar.offsetTop;
+  let sidersticky = siders.offsetTop;
+  document.addEventListener("scroll",myFunction);
+  function myFunction() {
+    if (window.scrollY >= sticky) {
+    navbar.classList.add("sticky")
+    } else {
+    navbar.classList.remove("sticky");
+    }
+    if (window.scrollY >= sidersticky) {
+    siders.classList.add("siderbar-part")
+    } else {
+    siders.classList.remove("siderbar-part");
+    }
+  }
+  </script> 
 
 <script src="https://kit.fontawesome.com/af2f068da0.js" crossorigin="anonymous"></script>
 <%- include("partials/homeFooter"); -%>
