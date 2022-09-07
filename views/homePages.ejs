@@ -36,7 +36,7 @@
           <div class="jumbotron">
             <h2>Message Board</h2>
             <form action="/homeMessages" method="post">
-              <textarea name="text" class="lead" rows="5" cols="67" placeholder="Please leave your messages here, thanks!" required ></textarea>
+              <textarea name="text" class="lead" rows="3" cols="67" placeholder="Please leave your messages here, thanks!" required ></textarea>
             <button class="btn btn-lg btn-primary"  type="submit">Submit</button>
     
             </form>
@@ -189,24 +189,63 @@
     </ul>
   </nav>
 </div>
+
+
+<div id="go-top" class="go-top">
+  <i class="fa-solid fa-arrows-up-to-line"></i>
+  <button class="btn btn-light btn-lg" onclick="goTop()">Top</button>
+</div>
+
 <script>
   const navbar = document.getElementById("message-board");
   const siders = document.getElementById("siders");
-  let sticky = navbar.offsetTop;
+  const topbutton = document.getElementById("go-top");
+  let sticky = navbar.offsetTop + 250;
   let sidersticky = siders.offsetTop;
   document.addEventListener("scroll",myFunction);
   function myFunction() {
-    if (window.scrollY >= sticky) {
-    navbar.classList.add("sticky")
-    } else {
-    navbar.classList.remove("sticky");
-    }
-    if (window.scrollY >= sidersticky) {
-    siders.classList.add("siderbar-part")
-    } else {
-    siders.classList.remove("siderbar-part");
-    }
+    if (
+         window.outerHeight === screen.availHeight
+     ){
+         if (
+             window.outerWidth === screen.availWidth
+         ){
+              if (window.scrollY >= sticky) {
+              navbar.classList.add("sticky")
+              topbutton.classList.remove("hidden-top");
+              } else {
+              navbar.classList.remove("sticky");
+              topbutton.classList.add("hidden-top");
+              }
+              if (window.scrollY >= sidersticky) {
+              siders.classList.add("siderbar-part")
+              } else {
+              siders.classList.remove("siderbar-part");
+              }
+         }else{
+          topbutton.classList.remove("hidden-top");
+          navbar.classList.remove("sticky");
+          siders.classList.remove("siderbar-part");
+         }
+     }else{
+      topbutton.classList.remove("hidden-top");
+          navbar.classList.remove("sticky");
+          siders.classList.remove("siderbar-part");
+
+     }
+    
   }
+
+  function goTop(){
+    window.scrollTo({
+  top: 0,
+  
+  behavior: 'smooth'
+});
+
+  }
+
+ 
   </script> 
 
 <script src="https://kit.fontawesome.com/af2f068da0.js" crossorigin="anonymous"></script>

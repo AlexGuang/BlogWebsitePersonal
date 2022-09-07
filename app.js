@@ -19,6 +19,7 @@ const contactContent = "Email: oliviachen797@gmail.com";
 
 const app = express();
 const ObjectID = require("mongodb").ObjectId;
+const itemNumPerPage = 5;     
 
 app.set('view engine', 'ejs');
 
@@ -885,7 +886,7 @@ app.get("/home/:number",function(req,res){
       const reversPosts = doc.reverse();
       let pagePost =[];
       let intpageNum = parseInt(pageNum);
-      let itemNumPerPage = 2;      
+       
       let maxItemNum =reversPosts.length;
       let maxPageNum =(parseInt(maxItemNum/itemNumPerPage) )+1;
       if(pageNum > maxPageNum){
